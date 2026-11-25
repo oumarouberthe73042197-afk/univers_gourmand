@@ -1,0 +1,20 @@
+# Univers Gourmand — réglages Apache
+AddType application/manifest+json .webmanifest
+AddType image/svg+xml .svg
+AddDefaultCharset UTF-8
+
+# Fichiers qui ne doivent jamais être téléchargeables depuis le navigateur
+<FilesMatch "\.(sql|md)$">
+  Require all denied
+</FilesMatch>
+<Files "config.php">
+  Require all denied
+</Files>
+
+# Le service worker doit toujours être revalidé
+<Files "sw.js">
+  Header set Cache-Control "no-cache"
+  Header set Service-Worker-Allowed "./"
+</Files>
+
+Options -Indexes
